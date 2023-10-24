@@ -25,7 +25,7 @@ public class Controller {
     public Object reserve(String roomId, String userId, String password){
         try {
             Person user = sessionManager.getUser(userId, password);
-            var data = hotel.reverse(roomId);
+            var data = hotel.reserve(user);
             return new ReverseCompletePage(data);
         } catch (Exception e){
             return new ErrorPage();

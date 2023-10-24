@@ -1,15 +1,13 @@
 package com.project.hotel.domain;
 
-import com.project.hotel.repository.RoomRepository;
-
 import java.time.LocalDate;
-import java.util.List;
 
-public class Room implements RoomRepository {
-    private LocalDate date; //날짜
-    private Person person; // 고객
-    private double area; // 크기
-    private int fee; // 숙박비
+public class Room {
+    private LocalDate date;
+    private Person person;
+    private double area;
+
+    private int fee;
 
     public LocalDate getDate() {
         return date;
@@ -25,15 +23,5 @@ public class Room implements RoomRepository {
 
     public int getFee() {
         return fee;
-    }
-
-    @Override
-    public List<Room> findRoomList() {
-        return null;
-    }
-
-    @Override
-    public void reserve(Room room) {
-
     }
 }
