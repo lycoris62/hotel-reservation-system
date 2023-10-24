@@ -8,11 +8,11 @@ public class CliOutput implements Output{
 
     @Override
     public void print(String page) {
-
+        System.out.print(page);
     }
 
     @Override
     public void println(String page) {
-
+        System.out.println(page);
     }
 }
