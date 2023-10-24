@@ -1,8 +1,10 @@
 package com.project.hotel.domain;
 
-public class Asset {
+import com.project.hotel.repository.AssetRepository;
 
-    private long balance;
+public class Asset implements AssetRepository {
+
+    private long balance; //자산
 
     public long getBalance() {
         return balance;
@@ -14,5 +16,15 @@ public class Asset {
 
     public void minus(long amount){
         balance -= amount;
+    }
+
+    @Override
+    public void plus(int price) {//예약 가격 예약 취소
+
+    }
+
+    @Override
+    public void minus(int price) {
+
     }
 }
