@@ -8,6 +8,16 @@ public class Person {
     private String number;
     private String name;
     private Role role;
+    private int money;
+
+    public Person(String id, String password, String number, String name, Role role, int money) {
+        this.id = id;
+        this.password = password;
+        this.number = number;
+        this.name = name;
+        this.role = role;
+        this.money = money;
+    }
 
     public String getNumber() {
         return number;
