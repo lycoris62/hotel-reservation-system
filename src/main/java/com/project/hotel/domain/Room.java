@@ -3,18 +3,24 @@ package com.project.hotel.domain;
 import java.time.LocalDate;
 
 public class Room {
+    private String id;
     private LocalDate date;
-    private Person person;
+
+    private String name;
     private double area;
 
     private int fee;
+
+    public String getId() {
+        return id;
+    }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public Person getPerson() {
-        return person;
+    public String getName() {
+        return name;
     }
 
     public double getArea() {

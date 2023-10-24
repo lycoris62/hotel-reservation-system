@@ -10,6 +10,8 @@ public class Reservation {
 	private Person person;
 	private LocalDateTime dateTime;
 
+	private int price;
+
 	public String getId() {
 		return id;
 	}
@@ -24,5 +26,9 @@ public class Reservation {
 
 	public LocalDateTime getDate() {
 		return dateTime;
+	}
+
+	public int getPrice() {
+		return price;
 	}
 }

@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class SessionManager {
     HashMap<String, Person> userMap = new HashMap<>();
 
-    SessionManager() {
+    public SessionManager() {
         Person admin = new Person("admin", "123", "010-0000-0000", "관리자", Role.ADMIN, 50000);
         Person customer1 = new Person("user1", "111", "010-1111-1111", "투숙객", Role.CUSTOMER, 300000);
         Person customer2 = new Person("user2", "222", "010-2222-2222", "장발장", Role.CUSTOMER, 300);
