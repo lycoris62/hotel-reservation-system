@@ -7,6 +7,7 @@ public class Person {
     private String password;
     private String number;
     private String name;
+    private Role role;
 
     public String getNumber() {
         return number;
@@ -22,5 +23,9 @@ public class Person {
 
     public String getPassword() {
         return password;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }
