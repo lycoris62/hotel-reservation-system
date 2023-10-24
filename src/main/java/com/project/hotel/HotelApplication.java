@@ -18,6 +18,7 @@ public class HotelApplication {
         if (input.readLine().equals("web")) {
             SpringApplication.run(HotelApplication.class, args);
         } else {
+            input.close();
             commandLineApp();
         }
     }
