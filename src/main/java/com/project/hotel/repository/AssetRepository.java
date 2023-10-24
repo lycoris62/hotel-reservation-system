@@ -1,11 +1,8 @@
 package com.project.hotel.repository;
 
-import org.springframework.util.Assert;
-
 public interface AssetRepository{
+    void plus(long price);
 
-    void plus(int price);
-
-    void minus(int price);
+    void minus(long price);
 
 }
