@@ -1,6 +1,11 @@
 package com.project.hotel.input.request;
 
+import java.time.LocalDateTime;
+
+import com.project.hotel.domain.Person;
+
 public record ReserveRequest(
-        String roomId
+	Person person,
+	LocalDateTime dateTime
 ) {
 }
