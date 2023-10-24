@@ -4,8 +4,7 @@ import com.project.hotel.common.SessionManager;
 import com.project.hotel.domain.Person;
 import com.project.hotel.input.Input;
 import com.project.hotel.output.Output;
-import com.project.hotel.output.page.ErrorPage;
-import com.project.hotel.output.page.ReverseCompletePage;
+import com.project.hotel.output.response.ErrorResponse;
 import com.project.hotel.service.HotelService;
 
 public class Controller {
@@ -26,9 +25,9 @@ public class Controller {
         try {
             Person user = sessionManager.getUser(userId, password);
             var data = hotel.reserve(user);
-            return new ReverseCompletePage(data);
+            return null;
         } catch (Exception e){
-            return new ErrorPage();
+            return new ErrorResponse(e.getMessage());
         }
     }
 }
