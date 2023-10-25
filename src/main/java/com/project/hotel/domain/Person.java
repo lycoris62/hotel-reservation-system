@@ -45,4 +45,8 @@ public class Person {
     public void minusMoney(int money) {
         this.money -= money;
     }
+
+    public int getMoney() {
+        return money;
+    }
 }
