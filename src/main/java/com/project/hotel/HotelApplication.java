@@ -55,7 +55,7 @@ public class HotelApplication {
         return new Extractor(CliInput.create());
     }
 
-    public static void commandLineApp() {
+    public static void commandLineApp() throws IOException {
         Output output = CliOutput.create();
 
         var viewResolver = hotelContext.viewResolver();
