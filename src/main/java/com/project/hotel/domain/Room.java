@@ -24,6 +24,10 @@ public class Room {
         reservedDates.add(date);
     }
 
+    public void cancelReserve(LocalDate date) {
+        reservedDates.remove(date);
+    }
+
     public String getName() {
         return name;
     }
