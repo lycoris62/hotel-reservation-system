@@ -37,4 +37,16 @@ public class Person {
     public Role getRole() {
         return role;
     }
+
+    public void plusMoney(int money) {
+        this.money += money;
+    }
+
+    public void minusMoney(int money) {
+        this.money -= money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
 }
