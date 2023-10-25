@@ -23,7 +23,7 @@ public class HotelApplication {
         }
     }
 
-    public static void commandLineApp() {
+    public static void commandLineApp() throws IOException {
         var input = CliInput.create();
         var output = CliOutput.create();
 
