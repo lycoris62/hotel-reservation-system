@@ -1,11 +1,16 @@
 package com.project.hotel.domain;
 
-public class Asset {
+import com.project.hotel.repository.AssetRepository;
 
-    private long balance;
+public class Asset{
+    private long balance; //자산
 
     public long getBalance() {
         return balance;
+    }
+
+    public void displaybalance(){
+        System.out.println("현재 자산은" + balance);
     }
 
     public void add(long amount){

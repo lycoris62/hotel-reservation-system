@@ -9,6 +9,7 @@ public class CliInput implements Input {
         return new CliInput();
     } //팩토리 매서드
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     @Override
     public String command() throws IOException {
         String s = br.readLine();

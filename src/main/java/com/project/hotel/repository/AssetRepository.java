@@ -1,8 +1,8 @@
 package com.project.hotel.repository;
 
-public interface AssetRepository {
+public interface AssetRepository{
+    void plus(long price);
 
-    void plus(int price);
+    void minus(long price);
 
-    void minus(int price);
 }

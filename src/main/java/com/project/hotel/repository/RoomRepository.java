@@ -7,5 +7,5 @@ import java.util.List;
 public interface RoomRepository {
 
     List<Room> findRoomList();
-    void reserve(Room room);
+    Room findRoom(String roomId);
 }

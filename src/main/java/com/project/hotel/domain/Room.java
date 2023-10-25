@@ -1,24 +1,35 @@
 package com.project.hotel.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Room {
     private String id;
+    private final Set<LocalDate> reservedDates = new HashSet<>();
     private String name;
-    private LocalDate date;
-    private Person person;
     private double area;
+
     private int fee;
-    public Room(String id) {
-        this.id = id;
+
+    public String getId() {
+        return id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public boolean isReserved(LocalDate date) {
+        return reservedDates.contains(date);
     }
 
-    public Person getPerson() {
-        return person;
+    public void reserve(LocalDate date) {
+        reservedDates.add(date);
+    }
+
+    public void cancelReserve(LocalDate date) {
+        reservedDates.remove(date);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getArea() {

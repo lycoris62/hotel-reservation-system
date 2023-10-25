@@ -3,7 +3,6 @@ package com.project.hotel.domain;
 public class Person {
 
     private String id;
-
     private String password;
     private String number;
     private String name;
