@@ -37,7 +37,10 @@ public class Extractor {
             var time = LocalDateTime.of(year, month, day, 0, 0, 0);
             return new ReserveRequest(new Person(id, password, "", null, null, 0), roomId, time);
         } else if (command.equals("2")) {
+            System.out.println("2. 예약 조회");
+            System.out.println("아이디 입력 : ");
             var userId = input.command();
+            System.out.println("비밀번호 입력 : ");
             var password = input.command();
             return new GetReserveListRequest(new Person(userId, password, null, null, null, 0));
         } else if (command.equals("3")) {
