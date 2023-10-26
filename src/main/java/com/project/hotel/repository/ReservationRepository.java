@@ -4,6 +4,7 @@ import com.project.hotel.domain.Person;
 import com.project.hotel.domain.Reservation;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReservationRepository {
     List<Reservation> findAll();
