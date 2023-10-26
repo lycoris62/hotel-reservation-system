@@ -31,10 +31,10 @@ public class Dispatcher {
 
         if (request instanceof DeleteReserveRequest deleteReserveRequest) {
             var user = deleteReserveRequest.person();
-            var id = user.getId();
+            var userId = user.getId();
             var password = user.getPassword();
-            var reservation = deleteReserveRequest.reservationId();
-            return controller.deleteReservation(id, password, reservation);
+            var reservationId = deleteReserveRequest.reservationId();
+            return controller.deleteReservation(reservationId, userId, password);
         }
 
 

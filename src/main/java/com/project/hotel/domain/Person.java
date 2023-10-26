@@ -9,6 +9,11 @@ public class Person {
     private Role role;
     private int money;
 
+    public Person(String id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
     public Person(String id, String password, String number, String name, Role role, int money) {
         this.id = id;
         this.password = password;
