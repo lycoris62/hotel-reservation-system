@@ -9,12 +9,11 @@ import java.time.format.DateTimeFormatter;
 public class ViewResolver {
 
     public String getPage(Object response) {
-        if (response instanceof GetReservationResponse) {
-            var getReservationResponse = (GetReservationResponse) response;
+        if (response instanceof GetReservationResponse getReservationResponse) {
 
             var result = new StringBuilder("예약 정보\n");
 
-            result.append(String.format("%-10s%-10s%-20s%%-10s", "예약일", "예약번호", "룸", "가격"));
+            result.append(String.format("%-10s %-10s %-20s %-10s", "예약일", "예약번호", "룸", "가격"));
 
             getReservationResponse.reservationList()
                     .forEach(reservation -> {
@@ -29,12 +28,11 @@ public class ViewResolver {
             return result.toString();
         }
 
-        if (response instanceof DeleteReservationResponse) {
-            var deleteReservationResponse = ((DeleteReservationResponse) response);
-            if(deleteReservationResponse.isDeleted()){
+        if (response instanceof DeleteReservationResponse deleteReservationResponse) {
+            if (deleteReservationResponse.isDeleted()) {
                 return """
-                    예약이 삭제되었습니다.
-                    """;
+                        예약이 삭제되었습니다.
+                        """;
             }
 
             return """
@@ -42,19 +40,18 @@ public class ViewResolver {
                     """;
         }
 
-        if (response instanceof ReserveResponse) {
-            var reserveResponse = (ReserveResponse) response;
+        if (response instanceof ReserveResponse reserveResponse) {
             var reservation = reserveResponse.reservation();
-            var reservationInfo = String.format("%-10s %-10s %-20s %-10d",
+            var reservationInfo = String.format("%-10s %-10s %-10s %-10d",
                     reservation.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     reservation.getId(),
                     reservation.getRoom().getName(),
                     reservation.getPrice());
 
-            return String.format("""
-                    예약되었습니다.
-                    %s
-                    """, reservationInfo);
+            return
+                    "예약되었습니다.\n" +
+                            String.format("%-10s %-10s %-10s %-10s\n", "예약일", "예약번호", "룸", "가격") +
+                            reservationInfo;
         }
 
         return "올바르지 않은 응답입니다.";
