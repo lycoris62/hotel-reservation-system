@@ -22,5 +22,4 @@ public class SessionManager {
             return userMap.get(id);
         throw new RuntimeException("유저 불러오기 실패");
     }
-
 }

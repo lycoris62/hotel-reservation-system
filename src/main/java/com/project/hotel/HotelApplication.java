@@ -23,11 +23,10 @@ public class HotelApplication {
     private static HotelApplication hotelContext = new HotelApplication();
 
     public static void main(String[] args) throws IOException {
-        var input = new BufferedReader(new InputStreamReader(System.in));
-        if (input.readLine().equals("web")) {
+        var input = CliInput.create();
+        if (input.command().equals("web")) {
             SpringApplication.run(HotelApplication.class, args);
         } else {
-            input.close();
             commandLineApp();
         }
     }
