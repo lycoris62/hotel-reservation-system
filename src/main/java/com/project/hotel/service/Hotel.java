@@ -91,9 +91,52 @@ public class Hotel implements HotelService {
         };
     }
 
-    @Override
-    public DeleteReservationResponse cancelReservation(DeleteReserveRequest request) {
-        return null;
-    }
+	@Override
+	public DeleteReservationResponse cancelReservation(DeleteReserveRequest request) {
+		Person user = request.person();
+		String reservationId = request.reservationId();
 
+		if (!user.getRole().equals(Role.CUSTOMER)) {
+			return new DeleteReservationResponse(false);
+		}
+
+		Optional<Reservation> optionalReservation = getReservation(user, reservationId);
+
+		if (optionalReservation.isEmpty()) {
+			return new DeleteReservationResponse(false);
+		}
+
+		processReservationCancel(optionalReservation.get());
+
+		return new DeleteReservationResponse(true);
+	}
+
+	private Optional<Reservation> getReservation(Person user, String reservationId) {
+		return reservationRepository.findUserReservation(user)
+			.stream()
+			.filter(reservation -> reservation.getId().equals(reservationId))
+			.findAny();
+	}
+
+	private void processReservationCancel(Reservation reservation) {
+		refundRoomFee(reservation);
+		cancelReservation(reservation);
+	}
+
+	private void refundRoomFee(Reservation reservation) {
+		Person user = reservation.getPerson();
+		Room room = reservation.getRoom();
+
+		user.plusMoney(room.getFee());
+		assetRepository.minus(room.getFee());
+	}
+
+	private void cancelReservation(Reservation reservation) {
+		Room room = reservation.getRoom();
+		LocalDate reservationDate = reservation.getDate().toLocalDate();
+		String reservationId = reservation.getId();
+
+		room.cancelReserve(reservationDate);
+		reservationRepository.delete(reservationId);
+	}
 }
