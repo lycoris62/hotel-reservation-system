@@ -6,6 +6,7 @@ import com.project.hotel.domain.Person;
 
 public record ReserveRequest(
 	Person person,
+	String roomName,
 	LocalDateTime dateTime
 ) {
 }
