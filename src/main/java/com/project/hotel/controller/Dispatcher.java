@@ -18,7 +18,8 @@ public class Dispatcher {
             var id = user.getId();
             var password = user.getPassword();
             var roomName = reserveRequest.roomName();
-            return controller.reserve(roomName, id, password);
+            var time = reserveRequest.dateTime();
+            return controller.reserve(roomName, id, password, time);
         }
 
         if (request instanceof GetReserveListRequest getReserveListRequest) {
