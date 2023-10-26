@@ -31,43 +31,59 @@ public class Hotel implements HotelService {
 	@Override
 	public ReserveResponse reserve(ReserveRequest request) {
 		Person user = request.person();
-		LocalDateTime reservationDateTime = request.dateTime();
-		LocalDate reservationDate = reservationDateTime.toLocalDate();
 
 		if (!user.getRole().equals(Role.CUSTOMER)) {
+			System.out.println("고객이 아님");
 			return new ReserveResponse(null, true);
 		}
 
-		List<Room> availableRoomList = getAvailableRoomList(user, reservationDate);
+		List<Room> availableRoomList = getAvailableRoomList(request);
 
 		if (availableRoomList.isEmpty()) {
+			System.out.println("없는 객실");
 			return new ReserveResponse(null, true);
 		}
 
-		Reservation reservation = processReservation(availableRoomList, user, reservationDateTime);
+		Reservation reservation = processReservation(availableRoomList, request);
 
 		return new ReserveResponse(reservation, false);
 	}
 
-	private List<Room> getAvailableRoomList(Person user, LocalDate reservationDate) {
-		return roomRepository.findRoomMoney(user.getMoney())
+	private List<Room> getAvailableRoomList(ReserveRequest request) {
+		Person user = request.person();
+		String roomName = request.roomName();
+		LocalDate reservationDate = request.dateTime().toLocalDate();
+
+		return roomRepository.findRoom(roomName)
 			.stream()
-			.filter(room -> !room.isReserved(reservationDate))
+			.filter(room -> isAvailable(room, reservationDate, user))
 			.toList();
 	}
 
-	private Reservation processReservation(List<Room> availableRoomList, Person user,
-		LocalDateTime reservationDateTime) {
+	private boolean isAvailable(Room room, LocalDate reservationDate, Person user) {
+		return !room.isReserved(reservationDate) && room.getFee() <= user.getMoney();
+	}
+
+	private Reservation processReservation(List<Room> availableRoomList, ReserveRequest request) {
+		Person user = request.person();
+		LocalDateTime reservationDateTime = request.dateTime();
+
 		Room room = availableRoomList.get(0);
 		payForRoomFee(user, room);
-		room.reserve(reservationDateTime.toLocalDate());
 
-		return new Reservation(room, user, reservationDateTime, room.getFee());
+		return saveReservation(room, reservationDateTime, user);
 	}
 
 	private void payForRoomFee(Person user, Room room) {
 		user.minusMoney(room.getFee());
 		assetRepository.plus(room.getFee());
+	}
+
+	private Reservation saveReservation(Room room, LocalDateTime reservationDateTime, Person user) {
+		room.reserve(reservationDateTime.toLocalDate());
+		Reservation reservation = new Reservation(room, user, reservationDateTime, room.getFee());
+		reservationRepository.save(reservation);
+		return reservation;
 	}
 
     @Override
