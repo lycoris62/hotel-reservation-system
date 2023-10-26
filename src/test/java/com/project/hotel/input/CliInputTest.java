@@ -1,13 +1,12 @@
 package com.project.hotel.input;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CliInputTest {
 
@@ -18,6 +17,7 @@ class CliInputTest {
                 1
                 """;
         var byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
+
         var cliInput = new CliInput(byteArrayInputStream);
 
         String command = cliInput.command();
