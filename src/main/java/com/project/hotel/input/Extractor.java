@@ -29,7 +29,8 @@ public class Extractor {
             return new ReserveRequest(null, roomId, time);
         } else if (command.equals("2")) {
             var userId = input.command();
-            return new GetReserveListRequest(new Person(userId, null, null, null, null, 0));
+            var password = input.command();
+            return new GetReserveListRequest(new Person(userId, password, null, null, null, 0));
         } else if (command.equals("3")) {
             var reservationId = input.command();
             return new DeleteReserveRequest(null, reservationId);

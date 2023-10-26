@@ -17,9 +17,8 @@ public class Dispatcher {
             var user = reserveRequest.person();
             var id = user.getId();
             var password = user.getPassword();
-            var roomId = reserveRequest.roomId();
-            var dateTime = reserveRequest.dateTime();
-            return controller.reserve(roomId, id, password);
+            var roomName = reserveRequest.roomName();
+            return controller.reserve(roomName, id, password);
         }
 
         if (request instanceof GetReserveListRequest getReserveListRequest) {

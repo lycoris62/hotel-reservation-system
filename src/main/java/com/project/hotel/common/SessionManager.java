@@ -18,7 +18,9 @@ public class SessionManager {
     }
 
     public Person getUser(String id, String password) {
-        return userMap.get(id);
+        if (userMap.containsKey(id) && userMap.get(id).getPassword().equals(password))
+            return userMap.get(id);
+        throw new RuntimeException("유저 불러오기 실패");
     }
 
 }
