@@ -32,6 +32,7 @@ public class Extractor {
             var password = input.command();
             return new GetReserveListRequest(new Person(userId, password, null, null, null, 0));
         } else if (command.equals("3")) {
+            System.out.println("예약 취소할 예약 번호를 입력하세요");
             var reservationId = input.command();
             return new DeleteReserveRequest(null, reservationId);
         }
