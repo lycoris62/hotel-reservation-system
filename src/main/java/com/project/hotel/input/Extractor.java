@@ -21,7 +21,10 @@ public class Extractor {
         System.out.println("1 예약하기 2 예약조회 3. 예약 삭제");
         String command = input.command();
 
+        Person tempUser = login();
+
         if (command.equals("1")) {
+
             System.out.println("객실 이름을 입력해세요.");
             var roomId = input.command();
             System.out.println("예약 년도를 입력하세요");
@@ -30,24 +33,28 @@ public class Extractor {
             var month = Integer.parseInt(input.command());
             System.out.println("예약 일을 일력하세요");
             var day = Integer.parseInt(input.command());
-            System.out.println("고객 id를 입력하세요");
-            var id = input.command();
-            System.out.println("고객 비밀번호를 입력하세요");
-            var password = input.command();
+
             var time = LocalDateTime.of(year, month, day, 0, 0, 0);
-            return new ReserveRequest(new Person(id, password, "", null, null, 0), roomId, time);
+            return new ReserveRequest(tempUser, roomId, time);
         } else if (command.equals("2")) {
-            System.out.println("2. 예약 조회");
-            System.out.println("아이디 입력 : ");
-            var userId = input.command();
-            System.out.println("비밀번호 입력 : ");
-            var password = input.command();
-            return new GetReserveListRequest(new Person(userId, password, null, null, null, 0));
+
+            return new GetReserveListRequest(tempUser);
         } else if (command.equals("3")) {
+
             System.out.println("예약 취소할 예약 번호를 입력하세요");
             var reservationId = input.command();
-            return new DeleteReserveRequest(null, reservationId);
+
+            return new DeleteReserveRequest(tempUser, reservationId);
         }
         throw new RuntimeException("입력 오류");
+    }
+
+    private Person login() throws IOException {
+        System.out.println("고객 id를 입력하세요");
+        var id = input.command();
+        System.out.println("고객 비밀번호를 입력하세요");
+        var password = input.command();
+
+        return new Person(id, password);
     }
 }
