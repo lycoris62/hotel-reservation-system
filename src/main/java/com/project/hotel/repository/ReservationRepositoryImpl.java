@@ -15,10 +15,8 @@ public class ReservationRepositoryImpl implements ReservationRepository{
     @Override
     public List<Reservation> findAll() {
         List<Reservation> list = new ArrayList<>();
-        int index = 0;
-        for (String userId : reservationStorage.keySet()) {
-            list.add(index, reservationStorage.get(userId));
-            index++;
+        for (Reservation reservation : reservationStorage.values()) {
+            list.add(reservation);
         }
         return list;
     }
@@ -26,11 +24,12 @@ public class ReservationRepositoryImpl implements ReservationRepository{
     @Override
     public List<Reservation> findUserReservation(Person user) {
         List<Reservation> list = new ArrayList<>();
-        int index = 0;
-        for (String userId : reservationStorage.keySet()) {
-            if (user.getId().equals(userId)) {
-                list.add(index, reservationStorage.get(userId));
-                index++;
+        // 입력받은 매개변수 user로 Reservation를 조회한다.
+        // 그러나 Reservation은 person을 가지고있다.
+        // reservationStorage<<안에 들어있는 person과 비교해서 입력받은 user와 같은 것을 찾아라.
+        for (Reservation reservation : reservationStorage.values()) {
+            if (user.equals(reservation.getPerson())) {
+                list.add(reservation);
             }
         }
         return list;
