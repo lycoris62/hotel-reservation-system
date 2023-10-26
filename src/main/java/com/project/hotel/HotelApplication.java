@@ -5,6 +5,8 @@ import com.project.hotel.controller.Controller;
 import com.project.hotel.controller.Dispatcher;
 import com.project.hotel.input.CliInput;
 import com.project.hotel.input.Extractor;
+import com.project.hotel.input.Input;
+import com.project.hotel.input.InputFactory;
 import com.project.hotel.output.CliOutput;
 import com.project.hotel.output.Output;
 import com.project.hotel.output.ViewResolver;
@@ -14,6 +16,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -21,13 +24,30 @@ import java.io.InputStreamReader;
 public class HotelApplication {
 
     private static HotelApplication hotelContext = new HotelApplication();
+    private static String type;
 
     public static void main(String[] args) throws IOException {
-        var input = CliInput.create();
-        if (input.command().equals("web")) {
+        System.out.println("서비스 타입을 입력하세요.\n" +
+                "1. cli 2. file"
+        );
+        type = InputFactory.cliInput().command();
+        if (type.equals("web")) {
             SpringApplication.run(HotelApplication.class, args);
         } else {
             commandLineApp();
+        }
+    }
+
+    public Input input() {
+        try {
+            if (type.equals("file")) {
+                System.out.println("파일 경로를 입력하세요.");
+                var path = InputFactory.cliInput().command();
+                return InputFactory.fileInput(new File(path));
+            }
+            return InputFactory.cliInput();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -35,23 +55,24 @@ public class HotelApplication {
         return new ViewResolver();
     }
 
-    public HotelService hotelService(){
+    public HotelService hotelService() {
         return new Hotel();
     }
 
-    public Dispatcher dispatcher(){
+    public Dispatcher dispatcher() {
         return new Dispatcher(controller());
     }
-    public Controller controller(){
+
+    public Controller controller() {
         return new Controller(hotelService(), sessionManager());
     }
 
-    public SessionManager sessionManager(){
+    public SessionManager sessionManager() {
         return new SessionManager();
     }
 
-    public Extractor extractor(){
-        return new Extractor(CliInput.create());
+    public Extractor extractor() {
+        return new Extractor(input());
     }
 
     public static void commandLineApp() throws IOException {
