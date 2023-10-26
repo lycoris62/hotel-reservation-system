@@ -10,6 +10,8 @@ import com.project.hotel.output.response.GetReservationResponse;
 import com.project.hotel.output.response.ReserveResponse;
 import com.project.hotel.service.HotelService;
 
+import java.time.LocalDateTime;
+
 public class Controller {
 
     private final HotelService hotel;
@@ -20,10 +22,9 @@ public class Controller {
         this.sessionManager = sessionManager;
     }
 
-    public ReserveResponse reserve(String roomId, String userId, String password) {
+    public ReserveResponse reserve(String roomId, String userId, String password, LocalDateTime time) {
         var user = sessionManager.getUser(userId, password);
-        var localDateTime = new Reservation().getDate();
-        var request = new ReserveRequest(user, roomId, localDateTime);
+        var request = new ReserveRequest(user, roomId, time);
         return hotel.reserve(request);
     }
     public GetReservationResponse getReservationList(String userId, String password) {
