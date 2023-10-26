@@ -45,7 +45,7 @@ public class ViewResolver {
         if (response instanceof ReserveResponse) {
             var reserveResponse = (ReserveResponse) response;
             var reservation = reserveResponse.reservation();
-            var reservationInfo = String.format("%-10s%-10s%-20s%%-10d",
+            var reservationInfo = String.format("%-10s %-10s %-20s %-10d",
                     reservation.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                     reservation.getId(),
                     reservation.getRoom().getName(),
@@ -54,7 +54,7 @@ public class ViewResolver {
             return String.format("""
                     예약되었습니다.
                     %s
-                    """, reservation);
+                    """, reservationInfo);
         }
 
         return "올바르지 않은 응답입니다.";

@@ -18,15 +18,24 @@ public class Extractor {
 
     public Object getRequest() throws IOException {
         // 1 예약하기 2 예약조회 3. 예약 삭제
+        System.out.println("1 예약하기 2 예약조회 3. 예약 삭제");
         String command = input.command();
 
         if (command.equals("1")) {
+            System.out.println("객실 이름을 입력해세요.");
             var roomId = input.command();
+            System.out.println("예약 년도를 입력하세요");
             var year = Integer.parseInt(input.command());
+            System.out.println("예약 월을 입력하세요");
             var month = Integer.parseInt(input.command());
+            System.out.println("예약 일을 일력하세요");
             var day = Integer.parseInt(input.command());
+            System.out.println("고객 id를 입력하세요");
+            var id = input.command();
+            System.out.println("고객 비밀번호를 입력하세요");
+            var password = input.command();
             var time = LocalDateTime.of(year, month, day, 0, 0, 0);
-            return new ReserveRequest(null, roomId, time);
+            return new ReserveRequest(new Person(id, password, "", null, null, 0), roomId, time);
         } else if (command.equals("2")) {
             var userId = input.command();
             var password = input.command();
