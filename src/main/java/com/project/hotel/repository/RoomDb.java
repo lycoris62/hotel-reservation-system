@@ -51,7 +51,7 @@ public class RoomDb implements RoomRepository{
     public List<Room> findRoom(String roomName) {
         List<Room> findRoom = new ArrayList<>();
         for(Room room : hotelRoom.values()){
-            if(room.getName() == roomName){
+            if(room.getName().contains(roomName)){
                 findRoom.add(room);
             }
         }
@@ -60,10 +60,10 @@ public class RoomDb implements RoomRepository{
 
     //숙박비가 크거나 같은면 출력
     @Override
-    public List<Room> findRoomMoney(int roomfee) {
+    public List<Room> findRoomMoney(int userMoney) {
         List<Room> findRoomMoney = new ArrayList<>();
         for(Room room : hotelRoom.values()){
-            if(room.getFee() <= roomfee){
+            if(room.getFee() <= userMoney){
                 findRoomMoney.add(room);
             }
         }
