@@ -13,11 +13,11 @@ public class ViewResolver {
 
             var result = new StringBuilder("예약 정보\n");
 
-            result.append(String.format("%-10s %-10s %-20s %-10s", "예약일", "예약번호", "룸", "가격"));
+            result.append(String.format("%-10s %-10s %-20s %-10s\n", "예약일", "예약번호", "룸", "가격"));
 
             getReservationResponse.reservationList()
                     .forEach(reservation -> {
-                        result.append(String.format("%-10s%-10s%-20s%%-10d",
+                        result.append(String.format("%-10s %-10s %-20s %-10d\n",
                                 reservation.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                                 reservation.getId(),
                                 reservation.getRoom().getName(),
