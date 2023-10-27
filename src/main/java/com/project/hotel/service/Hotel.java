@@ -15,32 +15,36 @@ import com.project.hotel.input.request.ReserveRequest;
 import com.project.hotel.output.response.DeleteReservationResponse;
 import com.project.hotel.output.response.GetReservationResponse;
 import com.project.hotel.output.response.ReserveResponse;
-import com.project.hotel.repository.AssetDb;
 import com.project.hotel.repository.AssetRepository;
 import com.project.hotel.repository.ReservationRepository;
-import com.project.hotel.repository.ReservationRepositoryImpl;
-import com.project.hotel.repository.RoomDb;
 import com.project.hotel.repository.RoomRepository;
 
 public class Hotel implements HotelService {
 
-	private final ReservationRepository reservationRepository = new ReservationRepositoryImpl();
-	private final RoomRepository roomRepository = new RoomDb();
-	private final AssetRepository assetRepository = new AssetDb();
+	private final ReservationRepository reservationRepository;
+	private final RoomRepository roomRepository;
+	private final AssetRepository assetRepository;
+
+	public Hotel(ReservationRepository reservationRepository, RoomRepository roomRepository,
+		AssetRepository assetRepository) {
+		this.reservationRepository = reservationRepository;
+		this.roomRepository = roomRepository;
+		this.assetRepository = assetRepository;
+	}
 
 	@Override
 	public ReserveResponse reserve(ReserveRequest request) {
 		Person user = request.person();
 
 		if (!user.getRole().equals(Role.CUSTOMER)) {
-			System.out.println("고객이 아님");
+			System.out.println("고객이 아님 (ReserveResponse 에 isError 필드 추가했으니 확인 후 이 출력은 지워도 됩니다.)");
 			return new ReserveResponse(null, true);
 		}
 
 		List<Room> availableRoomList = getAvailableRoomList(request);
 
 		if (availableRoomList.isEmpty()) {
-			System.out.println("없는 객실");
+			System.out.println("없는 객실 (ReserveResponse 에 isError 필드 추가했으니 확인 후 이 출력은 지워도 됩니다.)");
 			return new ReserveResponse(null, true);
 		}
 
