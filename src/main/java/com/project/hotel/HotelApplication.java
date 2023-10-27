@@ -1,9 +1,14 @@
 package com.project.hotel;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.project.hotel.common.SessionManager;
 import com.project.hotel.controller.Controller;
 import com.project.hotel.controller.Dispatcher;
-import com.project.hotel.input.CliInput;
 import com.project.hotel.input.Extractor;
 import com.project.hotel.input.Input;
 import com.project.hotel.input.InputFactory;
@@ -13,13 +18,6 @@ import com.project.hotel.output.ViewResolver;
 import com.project.hotel.repository.*;
 import com.project.hotel.service.Hotel;
 import com.project.hotel.service.HotelService;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 @SpringBootApplication
 public class HotelApplication {

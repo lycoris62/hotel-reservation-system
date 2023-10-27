@@ -36,14 +36,14 @@ public class Hotel implements HotelService {
 		Person user = request.person();
 
 		if (!user.getRole().equals(Role.CUSTOMER)) {
-			System.out.println("고객이 아님");
+			System.out.println("고객이 아님 (ReserveResponse 에 isError 필드 추가했으니 확인 후 이 출력은 지워도 됩니다.)");
 			return new ReserveResponse(null, true);
 		}
 
 		List<Room> availableRoomList = getAvailableRoomList(request);
 
 		if (availableRoomList.isEmpty()) {
-			System.out.println("없는 객실");
+			System.out.println("없는 객실 (ReserveResponse 에 isError 필드 추가했으니 확인 후 이 출력은 지워도 됩니다.)");
 			return new ReserveResponse(null, true);
 		}
 
