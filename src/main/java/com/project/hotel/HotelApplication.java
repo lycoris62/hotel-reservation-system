@@ -78,7 +78,7 @@ public class HotelApplication {
         return new Extractor(input());
     }
 
-    public static void commandLineApp() throws IOException {
+    public static void commandLineApp() {
         Output output = CliOutput.create();
 
         var viewResolver = hotelContext.viewResolver();
@@ -86,14 +86,18 @@ public class HotelApplication {
         var dispatcher = hotelContext.dispatcher();
 
         while (true) {
-            // 1. 사용자로 부터 요청을 받는다.
-            var request = extractor.getRequest();
-            // 2. 정해진 요청을 통해서 컨트롤러를 사용한다.
-            var response = dispatcher.handle(request);
-            // 3. 전달받은 응답을 통해서 출력할 페이지를 선택한다.
-            var page = viewResolver.getPage(response);
-            // 4. 출력한다.
-            output.println(page);
+            try {
+                // 1. 사용자로 부터 요청을 받는다.
+                var request = extractor.getRequest();
+                // 2. 정해진 요청을 통해서 컨트롤러를 사용한다.
+                var response = dispatcher.handle(request);
+                // 3. 전달받은 응답을 통해서 출력할 페이지를 선택한다.
+                var page = viewResolver.getPage(response);
+                // 4. 출력한다.
+                output.println(page);
+            } catch (Exception e){
+                System.out.println("오류 발생 처음 부터 다시 시작합니다.");
+            }
         }
     }
 }
