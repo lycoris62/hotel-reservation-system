@@ -41,6 +41,11 @@ public class ViewResolver {
         }
 
         if (response instanceof ReserveResponse reserveResponse) {
+
+            if(reserveResponse.isError()){
+                return "예약에 실패했습니다.";
+            }
+
             var reservation = reserveResponse.reservation();
             var reservationInfo = String.format("%-10s %-10s %-10s %-10d",
                     reservation.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
