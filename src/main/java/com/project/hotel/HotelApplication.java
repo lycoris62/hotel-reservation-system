@@ -1,24 +1,25 @@
 package com.project.hotel;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import com.project.hotel.common.SessionManager;
 import com.project.hotel.controller.Controller;
 import com.project.hotel.controller.Dispatcher;
-import com.project.hotel.input.CliInput;
 import com.project.hotel.input.Extractor;
 import com.project.hotel.input.Input;
 import com.project.hotel.input.InputFactory;
 import com.project.hotel.output.CliOutput;
 import com.project.hotel.output.Output;
 import com.project.hotel.output.ViewResolver;
+import com.project.hotel.repository.AssetDb;
+import com.project.hotel.repository.ReservationRepositoryImpl;
+import com.project.hotel.repository.RoomDb;
 import com.project.hotel.service.Hotel;
 import com.project.hotel.service.HotelService;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 @SpringBootApplication
 public class HotelApplication {
@@ -56,7 +57,7 @@ public class HotelApplication {
     }
 
     public HotelService hotelService() {
-        return new Hotel();
+        return new Hotel(new ReservationRepositoryImpl(), new RoomDb(), new AssetDb());
     }
 
     public Dispatcher dispatcher() {
