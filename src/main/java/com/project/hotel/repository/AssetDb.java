@@ -4,7 +4,7 @@ import com.project.hotel.domain.Asset;
 
 public class AssetDb implements AssetRepository{
 
-    Asset asset = new Asset();
+    private final Asset asset = new Asset();
     @Override
     public void plus(long price) {
         asset.add(price);

@@ -15,9 +15,7 @@ import com.project.hotel.input.InputFactory;
 import com.project.hotel.output.CliOutput;
 import com.project.hotel.output.Output;
 import com.project.hotel.output.ViewResolver;
-import com.project.hotel.repository.AssetDb;
-import com.project.hotel.repository.ReservationRepositoryImpl;
-import com.project.hotel.repository.RoomDb;
+import com.project.hotel.repository.*;
 import com.project.hotel.service.Hotel;
 import com.project.hotel.service.HotelService;
 
@@ -56,8 +54,14 @@ public class HotelApplication {
         return new ViewResolver();
     }
 
+    public final RoomRepository roomRepository = new RoomDb();
+
+    public final AssetRepository assetRepository = new AssetDb();
+
+    public final ReservationRepository reservationRepository = new ReservationRepositoryImpl();
+
     public HotelService hotelService() {
-        return new Hotel(new ReservationRepositoryImpl(), new RoomDb(), new AssetDb());
+        return new Hotel(reservationRepository, roomRepository, assetRepository);
     }
 
     public Dispatcher dispatcher() {
@@ -65,12 +69,10 @@ public class HotelApplication {
     }
 
     public Controller controller() {
-        return new Controller(hotelService(), sessionManager());
+        return new Controller(hotelService(), sessionManager);
     }
 
-    public SessionManager sessionManager() {
-        return new SessionManager();
-    }
+    public final SessionManager sessionManager = new SessionManager();
 
     public Extractor extractor() {
         return new Extractor(input());
