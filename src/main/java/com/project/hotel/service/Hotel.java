@@ -1,10 +1,5 @@
 package com.project.hotel.service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-
 import com.project.hotel.domain.Person;
 import com.project.hotel.domain.Reservation;
 import com.project.hotel.domain.Role;
@@ -15,18 +10,26 @@ import com.project.hotel.input.request.ReserveRequest;
 import com.project.hotel.output.response.DeleteReservationResponse;
 import com.project.hotel.output.response.GetReservationResponse;
 import com.project.hotel.output.response.ReserveResponse;
-import com.project.hotel.repository.AssetDb;
 import com.project.hotel.repository.AssetRepository;
 import com.project.hotel.repository.ReservationRepository;
-import com.project.hotel.repository.ReservationRepositoryImpl;
-import com.project.hotel.repository.RoomDb;
 import com.project.hotel.repository.RoomRepository;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 public class Hotel implements HotelService {
 
-	private final ReservationRepository reservationRepository = new ReservationRepositoryImpl();
-	private final RoomRepository roomRepository = new RoomDb();
-	private final AssetRepository assetRepository = new AssetDb();
+	private final ReservationRepository reservationRepository;
+	private final RoomRepository roomRepository;
+	private final AssetRepository assetRepository;
+
+	public Hotel(ReservationRepository reservationRepository, RoomRepository roomRepository, AssetRepository assetRepository) {
+		this.reservationRepository = reservationRepository;
+		this.roomRepository = roomRepository;
+		this.assetRepository = assetRepository;
+	}
 
 	@Override
 	public ReserveResponse reserve(ReserveRequest request) {

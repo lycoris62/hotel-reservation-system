@@ -18,6 +18,6 @@ public interface RoomRepository {
 
     List<Room> findRoomMoney(int roomfee);
 
-
+    void save(Room room);
 
 }

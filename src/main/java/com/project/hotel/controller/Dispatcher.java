@@ -36,8 +36,6 @@ public class Dispatcher {
             var reservationId = deleteReserveRequest.reservationId();
             return controller.deleteReservation(reservationId, userId, password);
         }
-
-
         throw new RuntimeException("값 오류");
     }
 }
